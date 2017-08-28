@@ -1,0 +1,25 @@
+#parse("header.html")
+<div id="main">
+    <div class="container" id="daily">
+        <div class="jscroll-inner">
+            <div class="daily">
+                <form action="/reg" method="post">
+                    <table>
+                        <tr>
+                            <td>用户名：</td>
+                            <td><input type="text" name="username"/></td>
+                            <td>$!{msgname}</td>
+                        </tr>
+                        <tr>
+                            <td>密码：</td>
+                            <td><input type="password" name="password"/></td>
+                            <td>$!{msgpwd}</td>
+                        </tr>
+                    </table>
+                    <input type="submit" value="注册"  style="width: 42px; height: 30px;" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("footer.html")
