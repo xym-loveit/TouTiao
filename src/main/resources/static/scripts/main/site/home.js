@@ -26,7 +26,7 @@
             PopupUpload.show({
                 listeners: {
                     done: function () {
-                        //alert('login');
+                        alert('share');
                         window.location.reload();
                     }
                 }

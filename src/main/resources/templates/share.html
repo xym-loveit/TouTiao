@@ -1,0 +1,33 @@
+#parse("header.html")
+<div id="main">
+    <div class="container" id="daily">
+        <div class="jscroll-inner">
+            <div class="daily">
+                <form action="/user/addNews/"  enctype="multipart/form-data" method="post">
+                    <table>
+                        <tr>
+                            <td>图片：</td>
+                            <td>
+                                <input type="file"  name="file"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>标题：</td>
+                            <td>
+                                <input type="text" name="title"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>链接：</td>
+                            <td>
+                                <input type="text" name="link"/>
+                            </td>
+                        </tr>
+                    </table>
+                        <input type="submit" value="上传"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("footer.html")

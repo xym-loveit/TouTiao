@@ -18,7 +18,7 @@
     <script type="text/javascript" src="/scripts/main/component/popupLogin.js"></script>
     <script type="text/javascript" src="/scripts/main/component/upload.js"></script>
     <script type="text/javascript" src="/scripts/main/component/popupUpload.js"></script>
-    <script type="text/javascript" src="/scripts/main/util/action.js"></script>
+    <script type="text/javascript" src="/scripts/main/site/home.js"></script>
 
 </head>
 <body class="welcome_index">
@@ -44,7 +44,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 #if ($user)
-                <li class="js-share"><a href="javascript:void(0);">分享</a></li>
+                <li class="js-share"><a href="/shareNews/">分享</a></li>
                 <li class=""><a href="/msg/list">站内信</a></li>
                 <li class=""><a href="/user/$!{user.id}/">$!{user.name}</a></li>
                 #else
