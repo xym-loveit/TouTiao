@@ -3,9 +3,24 @@
         <div class="container">
             <div class="post detail">
                 <div class="votebar">
-                    <button class="click-like up" aria-pressed="false" title="赞同"><i class="vote-arrow"></i><span class="count">$!{news.likeCount}</span></button>
-                    <button class="click-dislike down" aria-pressed="true" title="反对"><i class="vote-arrow"></i>
-                    </button>
+                    #if ($vo.like > 0)
+                    <a href="/like/${vo.news.id}">
+                        <button class="click-like up pressed"  data-id="$!{vo.news.id}" title="赞同"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
+                    </a>
+                    #else
+                    <a href="/like/${vo.news.id}">
+                        <button class="click-like up"  data-id="$!{vo.news.id}" data-id="$!{vo.news.id}" title="赞同"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
+                    </a>
+                    #end
+                    #if($vo.like < 0)
+                    <a href="/dislike/${vo.news.id}">
+                        <button class="click-dislike down pressed"  data-id="$!{vo.news.id}" title="反对"><i class="vote-arrow"></i></button>
+                    </a>
+                    #else
+                    <a href="/dislike/${vo.news.id}">
+                        <button class="click-dislike down"   data-id="$!{vo.news.id}" title="反对"><i class="vote-arrow"></i></button>
+                    </a>
+                    #end
                 </div>
                 <div class="content" data-url="http://nowcoder.com/posts/5l3hjr">
                       <div class="content-img">
