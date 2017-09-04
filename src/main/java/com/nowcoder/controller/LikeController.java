@@ -1,5 +1,8 @@
 package com.nowcoder.controller;
 
+import com.nowcoder.async.EventModel;
+import com.nowcoder.async.EventProducer;
+import com.nowcoder.async.EventType;
 import com.nowcoder.model.EntityType;
 import com.nowcoder.model.HostHolder;
 import com.nowcoder.service.LikeService;
@@ -28,12 +31,19 @@ public class LikeController {
     @Autowired
     NewsService newsService;
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping(path = {"/like/{newsId}"},method = {RequestMethod.GET, RequestMethod.POST})
     public String like(@PathVariable("newsId") int newsId){
         if (hostHolder.getUser() != null) {
             long likeCount = likeService.like(hostHolder.getUser().getId(),newsId,EntityType.ENTITY_NEWS);
             // 更新喜欢数
             newsService.updateLikeCount(newsId, (int) likeCount);
+            eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                    .setEntityOwnerId(newsService.getNews(newsId).getUserId())
+                    .setActorId(hostHolder.getUser().getId()).setEntityId(newsId)
+                    .setEntityType(EntityType.ENTITY_NEWS));
         }
         return "redirect:/";
     }

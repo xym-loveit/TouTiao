@@ -14,7 +14,7 @@ public interface MessageDAO {
     String INSERT_FIELDS = " from_id, to_id, content, created_date,has_read,conversation_id,status ";
     String SELECT_FIELDS = " id,"+INSERT_FIELDS;
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
-            ") values (#{fromId},#{toId},#{content},#{createdDate},#{hasRead},#{conversationId},#{status})"})
+            ") values (#{fromId},#{toId},#{content},#{createdDate},0,#{conversationId},0)"})
     void addMessage(Message message);
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where conversation_id=#{conversationId} and status=0" +
