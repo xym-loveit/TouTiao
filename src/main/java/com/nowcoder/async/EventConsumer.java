@@ -53,20 +53,22 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
                     String key = RedisKeyUtil.getEventQueueKey();
                     List<String> messages = jedisAdapter.brpop(0, key);
                     // 第一个元素是队列名字
-                    for (String message : messages) {
-                        if (message.equals(key)) {
-                            continue;
-                        }
+                    if (messages != null) {
+                        for (String message : messages) {
+                            if (message.equals(key)) {
+                                continue;
+                            }
 
-                        EventModel eventModel = JSON.parseObject(message, EventModel.class);
-                        // 找到这个事件的处理handler列表
-                        if (!config.containsKey(eventModel.getType())) {
-                            logger.error("不能识别的事件");
-                            continue;
-                        }
+                            EventModel eventModel = JSON.parseObject(message, EventModel.class);
+                            // 找到这个事件的处理handler列表
+                            if (!config.containsKey(eventModel.getType())) {
+                                logger.error("不能识别的事件");
+                                continue;
+                            }
 
-                        for (EventHandler handler : config.get(eventModel.getType())) {
-                            handler.doHandle(eventModel);
+                            for (EventHandler handler : config.get(eventModel.getType())) {
+                                handler.doHandle(eventModel);
+                            }
                         }
                     }
                 }
