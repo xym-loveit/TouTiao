@@ -21,7 +21,6 @@ public class MailController {
     @RequestMapping(path = {"/sendMail"},method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String sendMail(){
-        System.out.println("!!!!");
         Map<String, Object> map = new HashMap();
         map.put("username","程宝旭");
         mailSender.sendWithHTMLTemplate("13012999962@163.com", "登陆异常",
