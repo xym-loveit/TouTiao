@@ -121,4 +121,8 @@ public class UserService {
         return loginTicket.getTicket();
     }
 
+    public void deleteTicket(int userId){
+        loginTicketDAO.deleteTicket(userId);
+    }
+
 }

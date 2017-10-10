@@ -4,7 +4,14 @@
             <a href="http://nowcoder.com/about">关于我们</a>
             <a href="http://nowcoder.com/download">头条客户端</a>
         </p>
-        <p class="text-center">© 2013-2017 头条八卦</p>
+        <p class="text-center">© 2013-2017 头条八卦
+            <p align="right">
+                #if ($user)
+                <a href="/toLogout/$!{user.id}">登出</a>
+                #end
+            </p>
+        </p>
+
     </div>
 </footer>
 </body></html>

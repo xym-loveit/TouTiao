@@ -27,4 +27,7 @@ public interface LoginTicketDAO {
 
     @Update({"update ", TABLE_NAME, " set status=#{status},expired=#{expired}, ticket=#{ticket} where user_id =#{userId}"})
     void updateExpiredAndStatus(LoginTicket ticket);
+
+    @Delete({"delete from ", TABLE_NAME, " where user_id=#{userId}"})
+    void deleteTicket(int userId);
 }
