@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -44,5 +45,10 @@ public class RegisterController {
             model.addAttribute("registerError","注册异常");
             return "register";
         }
+    }
+    @RequestMapping(path = {"/checkNameUnique"},method = {RequestMethod.POST})
+    @ResponseBody
+    private String checkNameUnique(@RequestParam("uname") String username){
+        return userService.checkUsername(username);
     }
 }

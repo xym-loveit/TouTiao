@@ -1,29 +1,149 @@
-#parse("header.html")
-<div id="main">
-    <div class="container" id="daily">
-        <div class="jscroll-inner">
-            <div class="daily">
-                <form action="/login" method="post">
-                    <table>
-                        <tr>
-                            <td>用户名：</td>
-                            <td><input type="text" name="username"/></td>
-                            <td>$!{msgname}</td>
-                        </tr>
-                        <tr>
-                            <td>密码：</td>
-                            <td><input type="password" name="password"/></td>
-                            <td>$!{msgpwd}</td>
-                        </tr>
-                        <tr>
-                            <td>记住我：</td>
-                            <td><input type="radio" name="rember" value="1"/></td>
-                        </tr>
-                    </table>
-                    <input type="submit" value="登陆"  style="width: 42px; height: 30px;" />
-                </form>
-            </div>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>明日头条</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- font files  -->
+    <link href='#css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href='#css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
+    <!-- /font files  -->
+    <!-- css files -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
+    <!-- /css files -->
+
+    <link rel="stylesheet" type="text/css" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/styles/font-awesome.min.css">
+
+    <link rel="stylesheet" media="all" href="/styles/style.css">
+    <script type="text/javascript" src="/scripts/jquery.js"></script>
+    <script type="text/javascript" src="/scripts/main/base/base.js"></script>
+    <script type="text/javascript" src="/scripts/main/base/util.js"></script>
+    <script type="text/javascript" src="/scripts/main/base/event.js"></script>
+    <script type="text/javascript" src="/scripts/main/base/upload.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/component.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/popup.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/popupLogin.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/upload.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/popupUpload.js"></script>
+    <script type="text/javascript" src="/scripts/main/site/home.js"></script>
+    <script type="text/javascript">
+        function getXhr() {
+            var xhr = null;
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+            }else {
+                xhr = new ActiveXObject("Microsoft.XMLHttp");
+            }
+            return xhr;
+        }
+        function checkNameUnique() {
+            var xhr = getXhr();
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState == 4&&xhr.status == 200){
+                    document.getElementById("username_btn").value =xhr.responseText;
+                }
+            };
+            //xhr.open与xhr.setRequestHeader的顺序不能反过来，否则不出效果
+            xhr.open("post","/checkNameUnique",true);
+            xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+            document.getElementById("username_btn").value = "正在验证";
+            var uname = document.getElementById("username_register").value;
+            var username = (uname=='用户名')?'':uname;
+            xhr.send("uname="+username);
+        }
+        //验证用户名
+        function checkName() {
+            var nameId=document.getElementById("username");
+            if(nameId.value=='用户名'||nameId.value=='')
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        //验证密码
+        function checkPwd() {
+            var pwdId=document.getElementById("password");
+            if(pwdId.value=='密码'||pwdId.value=='')
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        function checkLoginAll() {
+            if(checkName()&&checkPwd())
+            {
+                return true;
+            }
+            else
+            {
+                alert("账号或密码为空");
+                return false;
+            }
+        }
+    </script>
+
+</head>
+<body class="welcome_index">
+
+<header class="navbar navbar-default navbar-static-top bs-docs-nav" id="top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a href="/" class="navbar-brand logo">
+                <h1>头条资讯</h1>
+                <h3>你关心的才是头条</h3>
+            </a>
         </div>
+
     </div>
+</header>
+<div class="log">
+    <h2 align="center">HELLO</h2>
+    <div class="content1">
+        <h2>登陆</h2>
+        <form action="/login" method="post" onsubmit="return checkLoginAll();">
+            <input type="text" name="username" id="username" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}"/>
+            <input type="password" name="password" id="password" value="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}"/>
+            <div class="remb">
+                记住我：
+                <input type="radio" name="rember" value="1"/>
+            </div>
+            <div class="button-row">
+                <input type="submit" class="sign-in" value="登陆">
+                <div class="clear"></div>
+            </div>
+        </form>
+    </div>
+    <div class="content2">
+        <h2>注册</h2>
+        <form action="/register" method="post">
+            <div>
+                <input class="content3" name="userid" id="username_register" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}">
+                <input class="btn" type="button" id="username_btn" value="验证用户名" onclick="checkNameUnique()"/>
+            </div>
+            <input type="tel" name="usrtel" value="手机号" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '手机号';}">
+            <div>
+                <input class="content3" name="code" value="验证码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '验证码';}"/>
+                <button class="btn" onclick="false;" >获取验证码</button>
+            </div>
+            <input type="password" name="psw" value="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}">
+            <input type="submit" class="register" value="注册">
+        </form>
+    </div>
+    <div class="clear"></div>
 </div>
 #parse("footer.html")

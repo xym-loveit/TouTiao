@@ -54,9 +54,6 @@ public class HomeController {
     private String index(Model model){
         List<ViewObject> vos = getNews(0,0,10);
         model.addAttribute("vos",vos);
-        for (ViewObject vo :vos) {
-            System.out.println("dislike:"+vo.get("like"));
-        }
         return "home";
     }
 

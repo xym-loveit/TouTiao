@@ -30,6 +30,18 @@ public class UserService {
         return userDAO.selectById(id);
     }
 
+    public String checkUsername(String username){
+        if (username == "") {
+            return "用户名为空";
+        }
+        User user = userDAO.selectByName(username);
+        if (user == null) {
+            return "用户名可用";
+        } else {
+            return "用户名重复";
+        }
+    }
+
     public Map<String, Object> register(String username, String password) {
         Map<String, Object> map = new HashedMap();
 
@@ -109,7 +121,6 @@ public class UserService {
             loginTicket.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
             loginTicketDAO.addTicket(loginTicket);
         } else {
-            System.out.println("!!!!!!!!!");
             loginTicket.setUserId(userId);
             Date date = new Date();
             date.setTime(date.getTime() + 1000*3600*24);
